@@ -10,7 +10,8 @@ using UnityEngine;
 namespace StarForce
 {
     /// <summary>
-    /// 游戏入口。
+    /// 游戏入口。 GameEntry 分为三部分partial， 这里 是自定义部分；
+    /// 其他两部分不要改，有自定义仅仅改这里就好；
     /// </summary>
     public partial class GameEntry : MonoBehaviour
     {

@@ -13,6 +13,7 @@ namespace StarForce
 {
     public class BuiltinDataComponent : GameFrameworkComponent
     {
+        // 版本信息配置，服务器匹配地址等
         [SerializeField]
         private TextAsset m_BuildInfoTextAsset = null;
 

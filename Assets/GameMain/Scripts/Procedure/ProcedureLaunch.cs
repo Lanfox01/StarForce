@@ -88,7 +88,7 @@ namespace StarForce
 
             GameEntry.Localization.Language = language;
             Log.Info("Init language settings complete, current language is '{0}'.", language.ToString());
-        }
+        } 
 
         private void InitCurrentVariant()
         {

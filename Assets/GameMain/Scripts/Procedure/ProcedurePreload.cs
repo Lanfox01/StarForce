@@ -45,7 +45,7 @@ namespace StarForce
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
-
+            // 定义这些回掉有什么用? 只是为了判定加载哪个环节出错了？ m_LoadedFlag？
             GameEntry.Event.Subscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
             GameEntry.Event.Subscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
             GameEntry.Event.Subscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess);
@@ -78,10 +78,10 @@ namespace StarForce
             {
                 if (!loadedFlag.Value)
                 {
-                    return;
+                    return; // 但凡有个错的加载，就退出？
                 }
             }
-
+            /// 没想明白 这种写法什么意思？
             procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
             ChangeState<ProcedureChangeScene>(procedureOwner);
         }

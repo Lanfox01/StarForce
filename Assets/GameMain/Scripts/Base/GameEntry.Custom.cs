@@ -29,6 +29,8 @@ namespace StarForce
 
         private static void InitCustomComponents()
         {
+            // 第一次获取是这样子的， 往后只要 GameEntry.BuiltinData.
+            // 当然 这两个命名空间下的 GameEntry 类是不一样的；
             BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
             HPBar = UnityGameFramework.Runtime.GameEntry.GetComponent<HPBarComponent>();
         }

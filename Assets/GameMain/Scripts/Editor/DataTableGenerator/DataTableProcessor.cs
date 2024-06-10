@@ -35,13 +35,14 @@ namespace StarForce.Editor.DataTableTools
         private string m_CodeTemplate;
         private DataTableCodeGenerator m_CodeGenerator;
 
+        
         public DataTableProcessor(string dataTableFileName, Encoding encoding, int nameRow, int typeRow, int? defaultValueRow, int? commentRow, int contentStartRow, int idColumn)
         {
             if (string.IsNullOrEmpty(dataTableFileName))
             {
                 throw new GameFrameworkException("Data table file name is invalid.");
             }
-
+            Debug.Log(Utility.Text.Format("根据'{0}' 文件创建. 格式解析", dataTableFileName));
             if (!dataTableFileName.EndsWith(".txt", StringComparison.Ordinal))
             {
                 throw new GameFrameworkException(Utility.Text.Format("Data table file '{0}' is not a txt.", dataTableFileName));
@@ -355,6 +356,13 @@ namespace StarForce.Editor.DataTableTools
             return -1;
         }
 
+        /// <summary>
+        ///  读取到的文件内容，转换 byte 存储起来
+        ///  好像只是 结构 没有值？
+        /// </summary>
+        /// <param name="outputFileName"></param>
+        /// <returns></returns>
+        /// <exception cref="GameFrameworkException"></exception>
         public bool GenerateDataFile(string outputFileName)
         {
             if (string.IsNullOrEmpty(outputFileName))
@@ -392,6 +400,12 @@ namespace StarForce.Editor.DataTableTools
             }
         }
 
+        /// <summary>
+        ///  Assets/GameMain/Configs/DataTableCodeTemplate.txt
+        /// </summary>
+        /// <param name="codeTemplateFileName"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
         public bool SetCodeTemplate(string codeTemplateFileName, Encoding encoding)
         {
             try

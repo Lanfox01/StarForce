@@ -7,6 +7,9 @@
 
 namespace StarForce
 {
+    /// <summary>
+    ///  对应 服务器上的 WindowsVersion.txt 文件
+    /// </summary>
     public class VersionInfo
     {
         // 是否需要强制更新游戏应用

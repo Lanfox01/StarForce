@@ -51,6 +51,7 @@ namespace StarForce.Editor.DataTableTools
         public static void GenerateDataFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
             string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".bytes"));
+            Debug.Log("即将创建: "+binaryDataFileName); // Assets/GameMain/DataTables/Aircraft.bytes
             if (!dataTableProcessor.GenerateDataFile(binaryDataFileName) && File.Exists(binaryDataFileName))
             {
                 File.Delete(binaryDataFileName);
@@ -63,6 +64,7 @@ namespace StarForce.Editor.DataTableTools
             dataTableProcessor.SetCodeGenerator(DataTableCodeGenerator);
 
             string csharpCodeFileName = Utility.Path.GetRegularPath(Path.Combine(CSharpCodePath, "DR" + dataTableName + ".cs"));
+            Debug.Log(Utility.Text.Format("创建代码文件 '{0}'", csharpCodeFileName ));
             if (!dataTableProcessor.GenerateCodeFile(csharpCodeFileName, Encoding.UTF8, dataTableName) && File.Exists(csharpCodeFileName))
             {
                 File.Delete(csharpCodeFileName);

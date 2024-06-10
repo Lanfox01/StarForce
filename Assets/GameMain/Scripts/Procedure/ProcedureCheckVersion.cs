@@ -74,6 +74,10 @@ namespace StarForce
             }
         }
 
+        /// <summary>
+        ///  这里应该是 直接跳转到 大版本 整包下载地址？
+        /// </summary>
+        /// <param name="userData"></param>
         private void GotoUpdateApp(object userData)
         {
             string url = null;
@@ -103,18 +107,19 @@ namespace StarForce
             // 解析版本信息
             byte[] versionInfoBytes = ne.GetWebResponseBytes();
             string versionInfoString = Utility.Converter.GetString(versionInfoBytes);
+            /// versionInfoString 获取到 WindowsVersion.txt 这个文件的内容
             m_VersionInfo = Utility.Json.ToObject<VersionInfo>(versionInfoString);
             if (m_VersionInfo == null)
             {
                 Log.Error("Parse VersionInfo failure.");
                 return;
             }
-
+            /// 为什么 要对比 两种 版本号？ 好像是 编译出包 和 资源出包的 时候设定的？
             Log.Info("Latest game version is '{0} ({1})', local game version is '{2} ({3})'.", m_VersionInfo.LatestGameVersion, m_VersionInfo.InternalGameVersion.ToString(), Version.GameVersion, Version.InternalGameVersion.ToString());
 
             if (m_VersionInfo.ForceUpdateGame)
             {
-                // 需要强制更新游戏应用
+                // 需要强制更新游戏应用   大版本 或者 有发现大Bug 的时候
                 GameEntry.UI.OpenDialog(new DialogParams
                 {
                     Mode = 2,

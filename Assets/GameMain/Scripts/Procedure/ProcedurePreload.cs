@@ -17,6 +17,9 @@ namespace StarForce
 {
     public class ProcedurePreload : ProcedureBase
     {
+        /// <summary>
+        /// 但凡有需要配置的数值配置，都要注册到这里；并且注意放置的目录 Assets/GameMain/DataTables/ 
+        /// </summary>
         public static readonly string[] DataTableNames = new string[]
         {
             "Aircraft",
@@ -88,18 +91,22 @@ namespace StarForce
 
         private void PreloadResources()
         {
-            // Preload configs
+            // Preload configs   
+            Debug.Log("--------------加载场景配置 DefaultConfig");
             LoadConfig("DefaultConfig");
-
+            
+            
+            Debug.Log("--------------加载各种数据表  dataTableName");
             // Preload data tables
             foreach (string dataTableName in DataTableNames)
             {
                 LoadDataTable(dataTableName);
             }
 
+            Debug.Log("--------------加载语言本地化数据  Default");
             // Preload dictionaries
             LoadDictionary("Default");
-
+            Debug.Log("--------------加载字体  MainFont");
             // Preload fonts
             LoadFont("MainFont");
         }

@@ -6,7 +6,7 @@ namespace StarForce
 {
     public class ProcedureVerifyResources : ProcedureBase
     {
-        private bool m_VerifyResourcesComplete = false;
+        private bool m_VerifyResourcesComplete = false;//资源格式和大小验证完毕 通过否？
 
         public override bool UseNativeDialog
         {

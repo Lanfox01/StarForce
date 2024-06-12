@@ -70,7 +70,7 @@ namespace StarForce
             }
             else
             {
-                ChangeState<ProcedureVerifyResources>(procedureOwner);
+                ChangeState<ProcedureVerifyResources>(procedureOwner); /// 不用更新下载新的资源包，这里直接验证本地资源
             }
         }
 

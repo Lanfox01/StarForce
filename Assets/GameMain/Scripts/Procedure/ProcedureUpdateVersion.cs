@@ -36,7 +36,7 @@ namespace StarForce
             base.OnEnter(procedureOwner);
 
             m_UpdateVersionComplete = false;
-
+            // 主要是为了下载 GameFrameworkVersion.dat 这个文件 
             GameEntry.Resource.UpdateVersionList(procedureOwner.GetData<VarInt32>("VersionListLength"), procedureOwner.GetData<VarInt32>("VersionListHashCode"), procedureOwner.GetData<VarInt32>("VersionListCompressedLength"), procedureOwner.GetData<VarInt32>("VersionListCompressedHashCode"), m_UpdateVersionListCallbacks);
             procedureOwner.RemoveData("VersionListLength");
             procedureOwner.RemoveData("VersionListHashCode");
@@ -55,7 +55,7 @@ namespace StarForce
 
             ChangeState<ProcedureVerifyResources>(procedureOwner);
         }
-
+        // 下载http://192.168.50.223:8080/0_1_0_1/Windows/GameFrameworkVersion.851e08b3.dat 到 成功 C:/Users/Administrator/AppData/LocalLow/Game Framework/Star Force/GameFrameworkVersion.dat 成功
         private void OnUpdateVersionListSuccess(string downloadPath, string downloadUri)
         {
             m_UpdateVersionComplete = true;

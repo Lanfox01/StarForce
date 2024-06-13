@@ -1,8 +1,8 @@
 {
   "GameVersion": "0.1.0",
   "InternalGameVersion": 0,
-  "CheckVersionUrl": "http://26.197.237.197/Resources/{0}Version.txt",
-  "WindowsAppUrl": "http://26.197.237.197/",
+  "CheckVersionUrl": "http://192.168.50.223:8080/Resources/{0}Version.txt",
+  "WindowsAppUrl": "http://192.168.50.223:8080/",
   "MacOSAppUrl": "http://26.197.237.197/",
   "IOSAppUrl": "http://26.197.237.197/",
   "AndroidAppUrl": "http://26.197.237.197/",

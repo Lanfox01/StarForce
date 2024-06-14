@@ -1,8 +1,11 @@
-﻿using GameFramework;
+﻿using System;
+using GameFramework;
 using GameFramework.Event;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityGameFramework.Runtime;
+using Object = UnityEngine.Object;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
 namespace StarForce
@@ -13,7 +16,7 @@ namespace StarForce
         private int m_UpdateCount = 0;
         private long m_UpdateTotalCompressedLength = 0L;
         private int m_UpdateSuccessCount = 0;
-        private List<UpdateLengthData> m_UpdateLengthData = new List<UpdateLengthData>();
+        private List<UpdateLengthData> m_UpdateLengthData = new List<UpdateLengthData>();// 表示已经下载过的资源？
         private UpdateResourceForm m_UpdateResourceForm = null;
 
         public override bool UseNativeDialog
@@ -41,7 +44,7 @@ namespace StarForce
             GameEntry.Event.Subscribe(ResourceUpdateChangedEventArgs.EventId, OnResourceUpdateChanged);
             GameEntry.Event.Subscribe(ResourceUpdateSuccessEventArgs.EventId, OnResourceUpdateSuccess);
             GameEntry.Event.Subscribe(ResourceUpdateFailureEventArgs.EventId, OnResourceUpdateFailure);
-
+            // 要求联网状态，目测接下来是大量的 资源下载； 下面是移动网络提醒？流量？
             if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
             {
                 GameEntry.UI.OpenDialog(new DialogParams
@@ -57,7 +60,7 @@ namespace StarForce
 
                 return;
             }
-
+            Thread.Sleep(10);
             StartUpdateResources(null);
         }
 
@@ -82,10 +85,10 @@ namespace StarForce
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
             if (!m_UpdateResourcesComplete)
-            {
+            {   // 还没下载更新完毕
                 return;
             }
-
+            
             ChangeState<ProcedurePreload>(procedureOwner);
         }
 
@@ -93,7 +96,7 @@ namespace StarForce
         {
             if (m_UpdateResourceForm == null)
             {
-                m_UpdateResourceForm = Object.Instantiate(GameEntry.BuiltinData.UpdateResourceFormTemplate);
+                m_UpdateResourceForm = Object.Instantiate(GameEntry.BuiltinData.UpdateResourceFormTemplate); /// ?? 什么东西 模板？？
             }
 
             Log.Info("Start update resources...");
@@ -110,6 +113,7 @@ namespace StarForce
 
             float progressTotal = (float)currentTotalUpdateLength / m_UpdateTotalCompressedLength;
             string descriptionText = GameEntry.Localization.GetString("UpdateResource.Tips", m_UpdateSuccessCount.ToString(), m_UpdateCount.ToString(), GetByteLengthString(currentTotalUpdateLength), GetByteLengthString(m_UpdateTotalCompressedLength), progressTotal, GetByteLengthString((int)GameEntry.Download.CurrentSpeed));
+            // Debug.Log(descriptionText);//
             m_UpdateResourceForm.SetProgress(progressTotal, descriptionText);
         }
 
@@ -150,6 +154,11 @@ namespace StarForce
 
         private void OnUpdateResourcesComplete(GameFramework.Resource.IResourceGroup resourceGroup, bool result)
         {
+             
+            
+           Debug.LogError("全部资源下载完毕！ 而且同时叶合并完毕");
+            
+           Thread.Sleep(10000);
             if (result)
             {
                 m_UpdateResourcesComplete = true;
@@ -164,11 +173,11 @@ namespace StarForce
         private void OnResourceUpdateStart(object sender, GameEventArgs e)
         {
             ResourceUpdateStartEventArgs ne = (ResourceUpdateStartEventArgs)e;
-
+            Debug.Log( "OnResourceUpdateStart 下载资源"+ne.DownloadUri);
             for (int i = 0; i < m_UpdateLengthData.Count; i++)
             {
                 if (m_UpdateLengthData[i].Name == ne.Name)
-                {
+                {   // 表示已经下过了又再次下载？
                     Log.Warning("Update resource '{0}' is invalid.", ne.Name);
                     m_UpdateLengthData[i].Length = 0;
                     RefreshProgress();
@@ -182,7 +191,7 @@ namespace StarForce
         private void OnResourceUpdateChanged(object sender, GameEventArgs e)
         {
             ResourceUpdateChangedEventArgs ne = (ResourceUpdateChangedEventArgs)e;
-
+            Log.Info("UpdateChanged '{0}'  ", ne.Name);
             for (int i = 0; i < m_UpdateLengthData.Count; i++)
             {
                 if (m_UpdateLengthData[i].Name == ne.Name)
@@ -207,7 +216,7 @@ namespace StarForce
                 {
                     m_UpdateLengthData[i].Length = ne.CompressedLength;
                     m_UpdateSuccessCount++;
-                    RefreshProgress();
+                    RefreshProgress(); // 成功下载一个 更新一个
                     return;
                 }
             }

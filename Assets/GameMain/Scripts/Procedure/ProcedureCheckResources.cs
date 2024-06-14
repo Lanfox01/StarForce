@@ -50,7 +50,7 @@ namespace StarForce
                 ChangeState<ProcedurePreload>(procedureOwner);
             }
         }
-        ///     Check 完毕回调
+        ///     CheckResources 完毕回调
         private void OnCheckResourcesComplete(int movedCount, int removedCount, int updateCount, long updateTotalLength, long updateTotalCompressedLength)
         {
             m_CheckResourcesComplete = true;

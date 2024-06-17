@@ -12,6 +12,9 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 
 namespace StarForce
 {
+    /// <summary>
+    ///  加载到新场景的 标准流程
+    /// </summary>
     public class ProcedureChangeScene : ProcedureBase
     {
         private const int MenuSceneId = 1;
@@ -58,7 +61,7 @@ namespace StarForce
             GameEntry.Base.ResetNormalGameSpeed();
 
             int sceneId = procedureOwner.GetData<VarInt32>("NextSceneId");
-            m_ChangeToMenu = sceneId == MenuSceneId;
+            m_ChangeToMenu = sceneId == MenuSceneId; // 是否变场景
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(sceneId);
             if (drScene == null)
@@ -90,7 +93,7 @@ namespace StarForce
                 return;
             }
 
-            if (m_ChangeToMenu)
+            if (m_ChangeToMenu) // 因为只有两个场景，所以，如果有变化，只能是两个切换
             {
                 ChangeState<ProcedureMenu>(procedureOwner);
             }

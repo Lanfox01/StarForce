@@ -11,6 +11,9 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 
 namespace StarForce
 {
+    /// <summary>
+    /// 当加载到Main场景；
+    /// </summary>
     public class ProcedureMain : ProcedureBase
     {
         private const float GameOverDelayedSeconds = 2f;
@@ -32,7 +35,10 @@ namespace StarForce
         {
             m_GotoMenu = true;
         }
-
+        /// <summary>
+        ///  OnInit 函数  似乎比  OnEnter 函数更早？
+        /// </summary>
+        /// <param name="procedureOwner"></param>
         protected override void OnInit(ProcedureOwner procedureOwner)
         {
             base.OnInit(procedureOwner);
@@ -53,7 +59,7 @@ namespace StarForce
 
             m_GotoMenu = false;
             GameMode gameMode = (GameMode)procedureOwner.GetData<VarByte>("GameMode").Value;
-            m_CurrentGame = m_Games[gameMode];
+            m_CurrentGame = m_Games[gameMode]; // 得到 SurvivalGame 类型的游戏
             m_CurrentGame.Initialize();
         }
 

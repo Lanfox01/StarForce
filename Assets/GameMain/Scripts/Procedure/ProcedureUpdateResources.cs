@@ -158,7 +158,7 @@ namespace StarForce
             
            Debug.LogError("全部资源下载完毕！ 而且同时叶合并完毕");
             
-           Thread.Sleep(10000);
+           
             if (result)
             {
                 m_UpdateResourcesComplete = true;
@@ -191,7 +191,7 @@ namespace StarForce
         private void OnResourceUpdateChanged(object sender, GameEventArgs e)
         {
             ResourceUpdateChangedEventArgs ne = (ResourceUpdateChangedEventArgs)e;
-            Log.Info("UpdateChanged '{0}'  ", ne.Name);
+            // Log.Info("UpdateChanged '{0}'  ", ne.Name);
             for (int i = 0; i < m_UpdateLengthData.Count; i++)
             {
                 if (m_UpdateLengthData[i].Name == ne.Name)

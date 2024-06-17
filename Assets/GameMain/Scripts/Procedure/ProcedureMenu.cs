@@ -11,6 +11,9 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 
 namespace StarForce
 {
+    /// <summary>
+    /// 当加载到Menu场景；
+    /// </summary>
     public class ProcedureMenu : ProcedureBase
     {
         private bool m_StartGame = false;

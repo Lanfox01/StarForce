@@ -16,7 +16,7 @@ namespace StarForce
         public static HPBarItemObject Create(object target)
         {
             HPBarItemObject hpBarItemObject = ReferencePool.Acquire<HPBarItemObject>();
-            hpBarItemObject.Initialize(target);
+            hpBarItemObject.Initialize(target); // HPBarItemObject 关联 到 hpBarItem
             return hpBarItemObject;
         }
 

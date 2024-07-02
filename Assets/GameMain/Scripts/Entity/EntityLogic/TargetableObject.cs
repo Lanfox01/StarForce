@@ -27,7 +27,7 @@ namespace StarForce
         }
 
         public abstract ImpactData GetImpactData();
-
+        // 同步应用更新伤害
         public void ApplyDamage(Entity attacker, int damageHP)
         {
             float fromHPRatio = m_TargetableObjectData.HPRatio;
@@ -35,7 +35,7 @@ namespace StarForce
             float toHPRatio = m_TargetableObjectData.HPRatio;
             if (fromHPRatio > toHPRatio)
             {
-                GameEntry.HPBar.ShowHPBar(this, fromHPRatio, toHPRatio);
+                GameEntry.HPBar.ShowHPBar(this, fromHPRatio, toHPRatio);//血条现实效果
             }
 
             if (m_TargetableObjectData.HP <= 0)

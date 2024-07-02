@@ -129,42 +129,43 @@ namespace StarForce
             }
 
             TargetableObject target = other as TargetableObject;
+            //  尝试将other转换为TargetableObject类型  撞到目标是飞船？还是其他陨石？
             if (target != null)
-            {
+            { // 分别获取两个实体的碰撞数据  
                 ImpactData entityImpactData = entity.GetImpactData();
                 ImpactData targetImpactData = target.GetImpactData();
                 if (GetRelation(entityImpactData.Camp, targetImpactData.Camp) == RelationType.Friendly)
-                {
+                { // 如果两个实体属于同一阵营（友好关系），则不造成伤害，直接返回 
                     return;
                 }
-
+                // 分别计算两个实体相互造成的伤害  
                 int entityDamageHP = CalcDamageHP(targetImpactData.Attack, entityImpactData.Defense);
                 int targetDamageHP = CalcDamageHP(entityImpactData.Attack, targetImpactData.Defense);
-
+                // 计算两个实体可以相互承受的最大伤害（以两者中较小的剩余生命值为准）  
                 int delta = Mathf.Min(entityImpactData.HP - entityDamageHP, targetImpactData.HP - targetDamageHP);
                 if (delta > 0)
                 {
                     entityDamageHP += delta;
                     targetDamageHP += delta;
                 }
-
+                // 相互应用伤害  
                 entity.ApplyDamage(target, entityDamageHP);
                 target.ApplyDamage(entity, targetDamageHP);
                 return;
             }
-
+            //  撞到目标是 子弹？
             Bullet bullet = other as Bullet;
             if (bullet != null)
-            {
+            { // 获取实体和子弹的碰撞数据  
                 ImpactData entityImpactData = entity.GetImpactData();
                 ImpactData bulletImpactData = bullet.GetImpactData();
                 if (GetRelation(entityImpactData.Camp, bulletImpactData.Camp) == RelationType.Friendly)
-                {
+                {  // 如果实体和子弹属于同一阵营，则不造成伤害，直接返回  
                     return;
                 }
-
+                // 计算子弹对实体造成的伤害  
                 int entityDamageHP = CalcDamageHP(bulletImpactData.Attack, entityImpactData.Defense);
-
+                // 应用伤害并隐藏子弹  
                 entity.ApplyDamage(bullet, entityDamageHP);
                 GameEntry.Entity.HideEntity(bullet);
                 return;

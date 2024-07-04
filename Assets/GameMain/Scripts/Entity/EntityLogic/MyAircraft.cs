@@ -24,7 +24,7 @@ namespace StarForce
         protected internal override void OnInit(object userData)
 #endif
         {
-            base.OnInit(userData);
+            base.OnInit(userData); 
         }
 
 #if UNITY_2017_3_OR_NEWER

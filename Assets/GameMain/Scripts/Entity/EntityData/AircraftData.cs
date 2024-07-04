@@ -16,13 +16,13 @@ namespace StarForce
     public abstract class AircraftData : TargetableObjectData
     {
         [SerializeField]
-        private ThrusterData m_ThrusterData = null;
+        private ThrusterData m_ThrusterData = null;//推进器数据
 
         [SerializeField]
-        private List<WeaponData> m_WeaponDatas = new List<WeaponData>();
+        private List<WeaponData> m_WeaponDatas = new List<WeaponData>();//武器器数据
 
         [SerializeField]
-        private List<ArmorData> m_ArmorDatas = new List<ArmorData>();
+        private List<ArmorData> m_ArmorDatas = new List<ArmorData>();//护甲器数据
 
         [SerializeField]
         private int m_MaxHP = 0;

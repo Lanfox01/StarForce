@@ -10,7 +10,7 @@ namespace StarForce
     public static partial class Constant
     {
         /// <summary>
-        /// 资源优先级。
+        /// 资源优先级。  加载框架模块也有优先级，资源加载的时候也有优先级。 优先级越高，越先加载； 越晚释放？
         /// </summary>
         public static class AssetPriority
         {

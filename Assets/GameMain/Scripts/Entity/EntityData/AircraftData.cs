@@ -36,6 +36,13 @@ namespace StarForce
         [SerializeField]
         private int m_DeadSoundId = 0;
 
+        /// <summary>
+        ///  从表数据中读取，并且填充实例数据；
+        ///  这里涉及到 联表查询
+        /// </summary>
+        /// <param name="entityId"></param>
+        /// <param name="typeId"></param>
+        /// <param name="camp"></param>
         public AircraftData(int entityId, int typeId, CampType camp)
             : base(entityId, typeId, camp)
         {

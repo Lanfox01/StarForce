@@ -17,6 +17,7 @@
       <Resource Name="Music/Menu" FileSystem="Resources" LoadType="0" Packed="True" ResourceGroups="Music" />
       <Resource Name="Scenes" FileSystem="Resources" LoadType="0" Packed="True" />
       <Resource Name="Sounds" FileSystem="Resources" LoadType="0" Packed="True" />
+      <Resource Name="TestResources" LoadType="0" Packed="True" />
       <Resource Name="Textures" FileSystem="Resources" LoadType="0" Packed="True" />
       <Resource Name="UI/UIForms" FileSystem="UI" LoadType="0" Packed="True" />
       <Resource Name="UI/UISounds" FileSystem="UI" LoadType="0" Packed="True" />
@@ -95,6 +96,7 @@
       <Asset Guid="834bfaee90a9d4e04b1e8c1ca22cc88e" ResourceName="Entities" />
       <Asset Guid="836be25be3e1e8c41ae5545bc8a9a4d7" ResourceName="Textures" />
       <Asset Guid="8940b037a9b441c4cbd3d2b446838424" ResourceName="Materials" />
+      <Asset Guid="89832ddc05b04e242b59e1d93eda1b2e" ResourceName="TestResources" />
       <Asset Guid="8b1acacd22538f34cb85287a0781ea5e" ResourceName="DataTables" />
       <Asset Guid="8cf749fdfa5edc3478d16893efeaa0eb" ResourceName="Entities" />
       <Asset Guid="8e114ded6a865324588170636872943c" ResourceName="DataTables" />

@@ -39,7 +39,7 @@ namespace StarForce
             GameEntry.Event.Subscribe(WebRequestSuccessEventArgs.EventId, OnWebRequestSuccess);
             GameEntry.Event.Subscribe(WebRequestFailureEventArgs.EventId, OnWebRequestFailure);
 
-            // 向服务器请求版本信息
+            // 向服务器请求版本信息  主要看 BuildInfo这个文件；中的CheckVersionUrl   比如 http://192.168.50.223:8080/Resources/WindowsVersion.txt
             GameEntry.WebRequest.AddWebRequest(Utility.Text.Format(GameEntry.BuiltinData.BuildInfo.CheckVersionUrl, GetPlatformPath()), this);
         }
 
@@ -61,7 +61,7 @@ namespace StarForce
             }
 
             if (m_NeedUpdateVersion)
-            {
+            {  // 如果需继续 更新资源，把服务器得到的新的版本信息内容 传输过去
                 procedureOwner.SetData<VarInt32>("VersionListLength", m_VersionInfo.VersionListLength);
                 procedureOwner.SetData<VarInt32>("VersionListHashCode", m_VersionInfo.VersionListHashCode);
                 procedureOwner.SetData<VarInt32>("VersionListCompressedLength", m_VersionInfo.VersionListCompressedLength);
@@ -104,10 +104,10 @@ namespace StarForce
                 return;
             }
 
-            // 解析版本信息
+            // 解析版本信息  下载后的二进制 转换为 string
             byte[] versionInfoBytes = ne.GetWebResponseBytes();
             string versionInfoString = Utility.Converter.GetString(versionInfoBytes);
-            /// versionInfoString 获取到 WindowsVersion.txt 这个文件的内容
+            /// versionInfoString 获取到 WindowsVersion.txt 这个文件的内容   反序列化吧
             m_VersionInfo = Utility.Json.ToObject<VersionInfo>(versionInfoString);
             if (m_VersionInfo == null)
             {
@@ -137,7 +137,7 @@ namespace StarForce
             // 设置资源更新下载地址
             GameEntry.Resource.UpdatePrefixUri = Utility.Path.GetRegularPath(m_VersionInfo.UpdatePrefixUri);
 
-            m_CheckVersionComplete = true;
+            m_CheckVersionComplete = true;   /// 资源版本号对比，如果不一样需 进一步的下载
             m_NeedUpdateVersion = GameEntry.Resource.CheckVersionList(m_VersionInfo.InternalResourceVersion) == CheckVersionListResult.NeedUpdate;
         }
 

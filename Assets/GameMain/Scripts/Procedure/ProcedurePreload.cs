@@ -35,7 +35,7 @@ namespace StarForce
             "Weapon",
         };
 
-        private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
+        private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>(); // 加载成功的标志； 所有都成功 才能进入下一关卡
 
         public override bool UseNativeDialog
         {
@@ -49,11 +49,11 @@ namespace StarForce
         {
             base.OnEnter(procedureOwner);
             // 定义这些回掉有什么用? 只是为了判定加载哪个环节出错了？ m_LoadedFlag？
-            GameEntry.Event.Subscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
+            GameEntry.Event.Subscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);     // 加载 Configs/DefaultConfig.txt
             GameEntry.Event.Subscribe(LoadConfigFailureEventArgs.EventId, OnLoadConfigFailure);
-            GameEntry.Event.Subscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess);
+            GameEntry.Event.Subscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess); // 加载各种表
             GameEntry.Event.Subscribe(LoadDataTableFailureEventArgs.EventId, OnLoadDataTableFailure);
-            GameEntry.Event.Subscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
+            GameEntry.Event.Subscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess); // Localization/ChineseSimplified/Dictionaries/Default.xml
             GameEntry.Event.Subscribe(LoadDictionaryFailureEventArgs.EventId, OnLoadDictionaryFailure);
 
             m_LoadedFlag.Clear();
@@ -158,6 +158,8 @@ namespace StarForce
             }
 
             m_LoadedFlag[ne.ConfigAssetName] = true;
+           
+            Log.Info("加载场景配置 DefaultConfig 成功") ;
             Log.Info("Load config '{0}' OK.", ne.ConfigAssetName);
         }
 

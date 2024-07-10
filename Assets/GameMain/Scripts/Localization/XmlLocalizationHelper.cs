@@ -18,7 +18,7 @@ namespace StarForce
     public class XmlLocalizationHelper : DefaultLocalizationHelper
     {
         /// <summary>
-        /// 解析字典。
+        /// 解析字典。  这里主要解析 DefaultDictionary.xml 这个文件
         /// </summary>
         /// <param name="dictionaryString">要解析的字典字符串。</param>
         /// <param name="userData">用户自定义数据。</param>
@@ -27,7 +27,7 @@ namespace StarForce
         {
             try
             {
-                string currentLanguage = GameEntry.Localization.Language.ToString();
+                string currentLanguage = GameEntry.Localization.Language.ToString(); // 终究还是这里 筛选 过滤一遍，符合本地化的语言配置信息提 从文本配置中取出来
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.LoadXml(dictionaryString);
                 XmlNode xmlRoot = xmlDocument.SelectSingleNode("Dictionaries");

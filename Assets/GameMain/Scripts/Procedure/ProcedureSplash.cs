@@ -13,7 +13,7 @@ namespace StarForce
 {
     public class ProcedureSplash : ProcedureBase
     {
-        public override bool UseNativeDialog
+        public override bool UseNativeDialog //使用本机对话框
         {
             get
             {

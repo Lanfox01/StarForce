@@ -52,7 +52,7 @@ namespace StarForce
             // 运行一帧即切换到 Splash 展示流程
             ChangeState<ProcedureSplash>(procedureOwner);
         }
-
+       // 分别获取本机语言， 设置配置中的语言，以及已经准备好的本地化语言资料 对比 求交集
         private void InitLanguageSettings()
         {
             if (GameEntry.Base.EditorResourceMode && GameEntry.Base.EditorLanguage != Language.Unspecified)
@@ -61,8 +61,8 @@ namespace StarForce
                 return;
             }
 
-            Language language = GameEntry.Localization.Language;
-            if (GameEntry.Setting.HasSetting(Constant.Setting.Language))
+            Language language = GameEntry.Localization.Language; // 第一次读取 直接获取本机系统的区域语言
+            if (GameEntry.Setting.HasSetting(Constant.Setting.Language)) // 读取配置， 并且 string 转 enum Language
             {
                 try
                 {
@@ -123,9 +123,13 @@ namespace StarForce
             }
 
             GameEntry.Resource.SetCurrentVariant(currentVariant);
+            // 在资源中 这点 当前的 语言 变体？
             Log.Info("Init current variant complete.");
         }
-
+        
+        /// <summary>
+        /// 为什么 声音 设置，需要先关闭? 再设定具体值？
+        /// </summary>
         private void InitSoundSettings()
         {
             GameEntry.Sound.Mute("Music", GameEntry.Setting.GetBool(Constant.Setting.MusicMuted, false));

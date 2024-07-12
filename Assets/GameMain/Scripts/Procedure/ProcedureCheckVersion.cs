@@ -57,6 +57,12 @@ namespace StarForce
 
             if (!m_CheckVersionComplete)
             {
+                if (!NotNet) // 如果是断网情况
+                {
+                    Log.Warning("Net disconnect.");
+                     //ChangeState<ProcedurePreload>(procedureOwner);
+                     ChangeState<ProcedureVerifyResources>(procedureOwner);
+                }
                 return;
             }
 
@@ -141,6 +147,13 @@ namespace StarForce
             m_NeedUpdateVersion = GameEntry.Resource.CheckVersionList(m_VersionInfo.InternalResourceVersion) == CheckVersionListResult.NeedUpdate;
         }
 
+        private bool NotNet = true;///服务器挂 或者 不能联网；
+        
+        /// <summary>
+        ///  于服务端版本匹配失败。 要么本地不能联网，要么服务器挂了
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnWebRequestFailure(object sender, GameEventArgs e)
         {
             WebRequestFailureEventArgs ne = (WebRequestFailureEventArgs)e;
@@ -150,6 +163,12 @@ namespace StarForce
             }
 
             Log.Warning("Check version failure, error message is '{0}'.", ne.ErrorMessage);
+            NotNet = false;
+            // 不能上网 直接提示 退出程序界面  涉及一个 流程？  ChangeState<ProcedureVerifyResources>(procedureOwner);
+            // 或者 直接进入？？ 跳过版本匹配，直接预加载资源流程？、
+            // 必须保证联网， 否则 不能更新， 不更新 就直接 进入 资源预加载页面； ---- 开始游戏  或者 是中控界面、
+            // ChangeState<ProcedureVerifyResources>(ProcedurePreload);
+            // ChangeState<ProcedurePreload>(procedureOwner);
         }
 
         private string GetPlatformPath()

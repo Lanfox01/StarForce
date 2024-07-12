@@ -15,7 +15,7 @@ namespace StarForce.Editor.DataTableTools
     {
         [MenuItem("Star Force/Generate DataTables")]
         private static void GenerateDataTables()
-        {
+        {   // 根据 配置txt 文件，生成 二进制的.byte 文件 和  Cs 代码文件
             foreach (string dataTableName in ProcedurePreload.DataTableNames)
             {
                 DataTableProcessor dataTableProcessor = DataTableGenerator.CreateDataTableProcessor(dataTableName);

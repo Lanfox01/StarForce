@@ -93,8 +93,8 @@ namespace StarForce
         {
             // Preload configs   
             Debug.Log("--------------加载场景配置 DefaultConfig");
-            LoadConfig("DefaultConfig");
-            
+            LoadConfig("DefaultConfig"); 
+            LoadConfig("MacInfoConfig");
             
             Debug.Log("--------------加载各种数据表  dataTableName");
             // Preload data tables
